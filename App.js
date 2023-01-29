@@ -9,15 +9,17 @@ export default function App() {
   const [input1, setInput1] = useState(0);
   const [result, setResult] = useState(0);
   const [operand, setOperand] = useState(null);
+  const [history, setHistory] = useState([]);
 
   sum = () => {
     let summa = parseFloat(input) + parseFloat(input1);
+    setHistory(prevHistory => [...prevHistory, `${input} + ${input1} = ${summa}`]);
     setResult(summa);
   }
 
-
   subtract = () => {
     let minus = parseFloat(input) - parseFloat(input1);
+    setHistory(prevHistory => [...prevHistory, `${input} - ${input1} = ${minus}`]);
     setResult(minus)
   }
 
@@ -50,6 +52,11 @@ export default function App() {
       <View style={{ flexDirection: "row" }}>
         <Button title=" + " onPress={sum} />
         <Button title=" - " onPress={subtract} />
+      </View>
+      <View>
+        {history.map((item, index) => (
+          <Text key={index}>{item}</Text>
+        ))}
       </View>
       <StatusBar style="auto" />
     </View>
